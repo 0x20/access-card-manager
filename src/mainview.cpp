@@ -170,5 +170,20 @@ void mainview::persistEntries() {
 }
 
 void mainview::reloadEntries() {
+    Json::Value jsonRoot;
+    Json::CharReaderBuilder builder;
+    JSONCPP_STRING errs;
+    std::ifstream inFile;
 
+    inFile.open(JsonDataFile);
+    if (Json::parseFromStream(builder, inFile, &jsonRoot, &errs)) {
+        cardEntries.clear();
+        for (Json::Value::ArrayIndex i = 0; i != jsonRoot.size(); i++) {
+            cardEntries.push_back(cardentry(jsonRoot[i]));
+        }
+    } else {
+        std::cout << "Error while reading JSON file:" << std::endl;
+        std::cout << errs << std::endl;
+    }
+    inFile.close();
 }
