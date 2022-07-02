@@ -112,10 +112,26 @@ void mainview::addCardDialog(Wt::WObject *owner)
     ownerEdit -> setMaxLength(50);
     ownerEdit -> setWidth(250);
     ownerLabel -> setBuddy(ownerEdit);
+    auto nameValidator = std::make_shared<Wt::WRegExpValidator>(".+");
+    nameValidator -> setMandatory(true);
+    ownerEdit -> setValidator(nameValidator);
+
 
     Wt::WLabel *cardIdLabel = dialogContents -> addNew<Wt::WLabel>("Card ID");
     Wt::WLineEdit *cardIdEdit = dialogContents -> addNew<Wt::WLineEdit>();
     cardIdLabel -> setBuddy(cardIdEdit);
+    auto cardIdValidator = std::make_shared<Wt::WRegExpValidator>("[0-9A-Fa-f]+");
+    cardIdValidator -> setMandatory(true);
+    cardIdEdit -> setValidator(cardIdValidator);
+    
+    cardIdEdit -> enterPressed().connect( [=] {
+        if (cardIdEdit -> validate() == Wt::ValidationState::Valid && ownerEdit -> validate() == Wt::ValidationState::Valid)
+            dialog -> accept();
+    });
+    ownerEdit -> enterPressed().connect( [=] {
+        if (cardIdEdit -> validate() == Wt::ValidationState::Valid && ownerEdit -> validate() == Wt::ValidationState::Valid)
+            dialog -> accept();
+    });
 
 
     dialog->contents()->addStyleClass("form-group");
@@ -129,7 +145,8 @@ void mainview::addCardDialog(Wt::WObject *owner)
 
 
     ok -> clicked().connect([=] {
-        dialog -> accept();
+        if (cardIdEdit -> validate() == Wt::ValidationState::Valid && ownerEdit -> validate() == Wt::ValidationState::Valid)
+            dialog -> accept();
     });
 
     cancel -> clicked().connect(dialog, &Wt::WDialog::reject);
