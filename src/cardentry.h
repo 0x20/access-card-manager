@@ -7,6 +7,7 @@
 
 #include <string>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <jsoncpp/json/json.h>
 
 
 class cardentry {
@@ -17,6 +18,8 @@ public:
     bool is_active;
 
     cardentry();
+    cardentry(Json::Value fromValue);
+    Json::Value toJsonValue();
 };
 
 
