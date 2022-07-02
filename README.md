@@ -1,4 +1,6 @@
-# acmgr
+# access-card-manager
+
+A simple tool to register and maintain access cards. Outputs a JSON file for the card readers to consume.
 
 # Building
 
