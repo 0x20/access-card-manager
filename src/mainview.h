@@ -24,6 +24,8 @@
 #include <Wt/WText.h>
 #include <Wt/WGroupBox.h>
 #include <Wt/WHBoxLayout.h>
+#include <Wt/WCheckBox.h>
+#include <Wt/WMessageBox.h>
 
 #include <list>
 #include "cardentry.h"
@@ -37,6 +39,9 @@ private:
     Wt::WTable * cardsTable;
 
     void addCardDialog(Wt::WObject *owner);
+    void redrawTable();
+    void persistEntries();
+    void reloadEntries();
 };
 
 

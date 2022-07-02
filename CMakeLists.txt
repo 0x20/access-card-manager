@@ -11,9 +11,12 @@ add_subdirectory(wt)
 include_directories(${CMAKE_BINARY_DIR}/wt)
 include_directories(wt/src)
 
+FIND_PACKAGE( Boost 1.71 COMPONENTS date_time REQUIRED )
+INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
+
 add_executable(ACmgr
         src/main.cpp
         src/cardentry.cpp src/cardentry.h
         src/mainview.cpp src/mainview.h
         )
-target_link_libraries(ACmgr wt wthttp)
+target_link_libraries(ACmgr wt wthttp  ${Boost_LIBRARIES})
