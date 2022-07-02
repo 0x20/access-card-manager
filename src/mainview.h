@@ -6,6 +6,7 @@
 #define ACMGR_MAINVIEW_H
 
 
+// Wt
 #include <Wt/WApplication.h>
 #include <Wt/WBreak.h>
 #include <Wt/WContainerWidget.h>
@@ -27,12 +28,22 @@
 #include <Wt/WCheckBox.h>
 #include <Wt/WMessageBox.h>
 
+// jsoncpp
+#include <jsoncpp/json/json.h>
+
+// std
 #include <list>
+#include <iostream>
+#include <fstream>
+
+// internal
 #include "cardentry.h"
 
 class mainview : public Wt::WApplication {
 public:
     mainview(const Wt::WEnvironment& env);
+
+    std::string JsonDataFile;
 
 private:
     std::list<cardentry> cardEntries;

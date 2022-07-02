@@ -6,6 +6,10 @@
 
 mainview::mainview(const Wt::WEnvironment& env)
         : Wt::WApplication(env) {
+
+    // set default json filename
+    JsonDataFile = "cards.json";
+
     setTitle("Access Card Manager");
 
     setTheme(std::make_shared<Wt::WBootstrap5Theme>());
@@ -151,7 +155,18 @@ void mainview::addCardDialog(Wt::WObject *owner)
 }
 
 void mainview::persistEntries() {
+    Json::Value jsonRoot = Json::Value(Json::arrayValue);
+    std::list<cardentry>::iterator cardEntryIterator;
 
+    for (cardEntryIterator = cardEntries.begin(); cardEntryIterator != cardEntries.end(); cardEntryIterator++) {
+        jsonRoot.append(cardEntryIterator->toJsonValue());
+    }
+
+    std::ofstream outFile;
+    outFile.open(JsonDataFile);
+    Json::StyledWriter styledWriter;
+    outFile << styledWriter.write(jsonRoot);
+    outFile.close();
 }
 
 void mainview::reloadEntries() {
