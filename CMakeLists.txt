@@ -1,4 +1,4 @@
-project(ACmgr)
+project(access-card-manager)
 cmake_minimum_required(VERSION 3.0)
 
 # disable embedded wt shared library build
@@ -19,9 +19,9 @@ include_directories( ${Boost_INCLUDE_DIR} )
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(JSONCPP jsoncpp)
 
-add_executable(ACmgr
+add_executable(access-card-manager
         src/main.cpp
         src/cardentry.cpp src/cardentry.h
         src/mainview.cpp src/mainview.h
         )
-target_link_libraries(ACmgr wt wthttp  ${Boost_LIBRARIES} ${JSONCPP_LIBRARIES})
+target_link_libraries(access-card-manager wt wthttp  ${Boost_LIBRARIES} ${JSONCPP_LIBRARIES})

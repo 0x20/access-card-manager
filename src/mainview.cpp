@@ -48,6 +48,12 @@ mainview::mainview(const Wt::WEnvironment& env)
 
 }
 
+mainview::mainview(const Wt::WEnvironment& env, std::string cardsFile) : mainview(env) {
+    JsonDataFile = cardsFile;
+    reloadEntries();
+    redrawTable();
+}
+
 void mainview::redrawTable() {
     reloadEntries();
     cardsTable -> clear();
@@ -123,7 +129,7 @@ void mainview::addCardDialog(Wt::WObject *owner)
     auto cardIdValidator = std::make_shared<Wt::WRegExpValidator>("[0-9A-Fa-f]+");
     cardIdValidator -> setMandatory(true);
     cardIdEdit -> setValidator(cardIdValidator);
-    
+
     cardIdEdit -> enterPressed().connect( [=] {
         if (cardIdEdit -> validate() == Wt::ValidationState::Valid && ownerEdit -> validate() == Wt::ValidationState::Valid)
             dialog -> accept();

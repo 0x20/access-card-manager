@@ -42,6 +42,7 @@
 class mainview : public Wt::WApplication {
 public:
     mainview(const Wt::WEnvironment& env);
+    mainview(const Wt::WEnvironment& env, std::string cardsFile);
 
     std::string JsonDataFile;
 
