@@ -1,0 +1,4 @@
+[submodule "wt"]
+	path = wt
+	url = https://github.com/emweb/wt
+	branch = 4.7-release
